@@ -1,8 +1,12 @@
 package soundwave;
 
-import com.github.javafaker.Bool;
+import soundwave.util.ClearConsole;
 import soundwave.util.Dotenv;
 import soundwave.util.Logger;
+import soundwave.views.Dashboard;
+import soundwave.views.Login;
+
+import java.io.IOException;
 
 /**
  * Soundwave Project
@@ -15,10 +19,12 @@ import soundwave.util.Logger;
  * - Audio Stream
  * - Port Tunneling (Remote Access)
  * - User Identity & Access Management (IAM)
+ * - Authentication                             [DONE]
  * - Interactive Console & Animation
  * - Built-in dotenv                            [DONE]
  * - Exception handler & logger                 [DONE]
  * - Automation testing
+ * - Scanner DI
  *
  * Features:
  * - Playlist (Music name, Artist, Genre)
@@ -28,28 +34,8 @@ import soundwave.util.Logger;
  */
 public class App {
     public static void main( String[] args ) {
-        try {
-            Dotenv app = new Dotenv();
-            boolean isInteractive = Boolean.parseBoolean(app.ENV("INTERACTIVE_MODE"));
+        Dashboard dashboard = new Dashboard("Welcome to Soundwave");
 
-            if (!isInteractive) {
-                basic();
-            }
-
-            if (isInteractive) {
-                interactive();
-            }
-        } catch (Exception exception) {
-            new Logger().log(exception);
-            exception.printStackTrace();
-        }
-    }
-
-    private static void basic() {
-
-    }
-
-    private static void interactive() {
-
+        dashboard.console();
     }
 }

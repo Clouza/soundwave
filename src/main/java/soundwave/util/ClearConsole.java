@@ -10,11 +10,16 @@ import java.io.IOException;
  * @see <a href="https://stackoverflow.com/questions/15464111/run-cmd-commands-through-java">Example</a>
  */
 public class ClearConsole {
-    public void clear() throws IOException {
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
-        } else {
-            new ProcessBuilder("clear").inheritIO().start();
+    public static void clear() {
+        try {
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start();
+            }
+        } catch (IOException exception) {
+            Logger.log(exception);
+            exception.printStackTrace();
         }
     }
 }

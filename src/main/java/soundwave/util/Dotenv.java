@@ -33,7 +33,7 @@ public class Dotenv {
             properties.load(fs);
             return properties.getProperty(key);
         } catch (IOException exception) {
-            new Logger().log(exception);
+            Logger.log(exception);
             exception.printStackTrace();
         }
 

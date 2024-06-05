@@ -14,12 +14,8 @@ import java.util.Date;
  */
 public class Logger {
     private static final String LOGGER_DIRECTORY = "logs";
-    private Dotenv env;
 
     public Logger() {}
-    public Logger(Dotenv env) {
-        this.env = env;
-    }
 
     /**
      * Record exception that has log method inside of it. If this method
@@ -29,7 +25,7 @@ public class Logger {
      * @param exception
      * @return Exception Message
      */
-    public String log(Exception exception) {
+    public static String log(Exception exception) {
         Date now = new Date();
         SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = dateTime.format(now);
@@ -42,8 +38,9 @@ public class Logger {
             // send report to discord
             try {
                 HttpRequest request = new HttpRequest();
+                Dotenv env = new Dotenv();
                 request.setMethod("POST")
-                        .setUrl(this.env.ENV("DISCORD_WEBHOOK"))
+                        .setUrl(env.ENV("DISCORD_WEBHOOK"))
                         .setContentType("application/json")
                         .setMessage("Hi Guys!")
                         .send();
@@ -63,7 +60,7 @@ public class Logger {
      * @param formattedDateTime 2024-06-04 12:00:01
      * @return Boolean | Exception
      */
-    private Object readAndWriteLogFile(Exception exception, String formattedDate, String formattedDateTime) {
+    private static Object readAndWriteLogFile(Exception exception, String formattedDate, String formattedDateTime) {
         try {
             // check file exists
             String pathName = String.format("%s/%s.log", "logs", formattedDate);
@@ -96,6 +93,7 @@ public class Logger {
                 fileLogName.close();
             }
         } catch (Exception e) {
+            System.out.println("Log Error :(");
             e.printStackTrace();
         }
 
