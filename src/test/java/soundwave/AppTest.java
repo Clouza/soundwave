@@ -96,6 +96,20 @@ public class AppTest
         assertFalse(isClean);
     }
 
+    @Test
+    public void differentID() {
+        Registration registration = new Registration();
+        registration.register("Wahyu Siwananda", "wahyu@example.com", "wahyu", "qwerty", "qwerty");
+
+        Registration registration2 = new Registration();
+        registration.register("Wahyu Siwananda", "wahyu@example.com", "Wahyu Siwananda", "qwerty", "qwerty");
+
+        String id1 = Migration.getUsers().get("wahyu").getId();
+        String id2 = Migration.getUsers().get("Wahyu Siwananda").getId();
+
+        assertNotEquals(id1, id2);
+    }
+
     /**
      * Debug and more
      */

@@ -11,15 +11,17 @@ import java.io.IOException;
  */
 public class ClearConsole {
     public static void clear() {
-        try {
-            if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
-            } else {
-                new ProcessBuilder("clear").inheritIO().start();
-            }
-        } catch (IOException exception) {
-            Logger.log(exception);
-            exception.printStackTrace();
-        }
+//        try {
+//            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+//                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
+//            } else {
+//                new ProcessBuilder("clear").inheritIO().start();
+//            }
+//        } catch (IOException exception) {
+//            Logger.log(exception);
+//            exception.printStackTrace();
+//        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

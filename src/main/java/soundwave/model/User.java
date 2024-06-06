@@ -1,6 +1,7 @@
 package soundwave.model;
 
 import soundwave.repository.Migration;
+import soundwave.util.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,19 +63,24 @@ public class User {
     }
 
     public boolean save() {
-        Migration migration = new Migration();
-        boolean existingUsername =  migration.getUsers() != null && migration.getUsers().get(username) != null;
+        try {
+            boolean existingUsername =  Migration.getUsers() != null && Migration.getUsers().get(username) != null;
 
-        if (existingUsername) {
-            System.out.println("Username telah digunakan.");
+            if (existingUsername) {
+                System.out.println("Username telah digunakan.");
+                return false;
+            }
+
+            HashMap<String, User> users = Migration.getUsers() == null
+                    ? new HashMap<String, User>()
+                    : Migration.getUsers();
+
+            users.put(this.username, this);
+            Migration.setUsers(users);
+        } catch (Exception exception) {
+            Logger.log(exception);
             return false;
         }
-
-        HashMap<String, User> users = migration.getUsers() == null
-                ? new HashMap<String, User>()
-                : migration.getUsers();
-        users.put(this.username, this);
-        migration.setUsers(users);
 
         return true;
     }

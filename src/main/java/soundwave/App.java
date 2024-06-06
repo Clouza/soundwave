@@ -24,7 +24,7 @@ import java.io.IOException;
  * - Built-in dotenv                            [DONE]
  * - Exception handler & logger                 [DONE]
  * - Automation testing
- * - Scanner DI
+ * - Static Scanner DI
  *
  * Features:
  * - Playlist (Music name, Artist, Genre)

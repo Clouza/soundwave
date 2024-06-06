@@ -19,14 +19,14 @@ public class Registration extends View {
 
     @Override
     public void console() {
-        System.out.println("+---------------------------+");
-        System.out.println("|       Registration        |");
-        System.out.println("+---------------------------+");
-
         Scanner input = new Scanner(System.in);
         boolean save = false;
 
         do {
+            System.out.println("+---------------------------+");
+            System.out.println("|       Registration        |");
+            System.out.println("+---------------------------+");
+
             System.out.print("Nama: ");
             String name = input.nextLine();
 
@@ -43,11 +43,13 @@ public class Registration extends View {
             String passwordConfirmation = input.nextLine();
 
             save = this.register(name, email, username, password, passwordConfirmation);
-        } while (!save);
+            if (save) {
+                System.out.println("Register berhasil. Selamat!");
+            }
 
-        System.out.println("Register berhasil. Selamat!");
-        input.nextLine();
-        ClearConsole.clear();
+            input.nextLine();
+            ClearConsole.clear();
+        } while (!save);
     }
 
     public boolean register(String name, String email, String username, String password, String passwordConfirmation) {

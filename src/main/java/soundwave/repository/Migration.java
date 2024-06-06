@@ -17,19 +17,19 @@ public class Migration {
 
     // temporary database
 
-    public void setSongs(HashMap<String, Music> songs) {
+    public static void setSongs(HashMap<String, Music> songs) {
         Migration.songs = songs;
     }
 
-    public void setArtists(HashMap<String, Artist> artists) {
+    public static void setArtists(HashMap<String, Artist> artists) {
         Migration.artists = artists;
     }
 
-    public void setGenres(HashMap<String, Genre> genres) {
+    public static void setGenres(HashMap<String, Genre> genres) {
         Migration.genres = genres;
     }
 
-    public void setUsers(HashMap<String, User> users) {
+    public static void setUsers(HashMap<String, User> users) {
         Migration.users = users;
     }
 
