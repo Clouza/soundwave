@@ -84,4 +84,23 @@ public class User {
 
         return true;
     }
+
+    public boolean delete(String username) {
+        try {
+            if (Migration.getUsers().get(username) == null) {
+                return false;
+            }
+
+            Migration.getUsers().remove(username);
+        } catch (Exception exception) {
+            Logger.log(exception);
+            return false;
+        }
+
+        return true;
+    }
+
+    public HashMap<String, User> songs() {
+        return Migration.getUsers();
+    }
 }
