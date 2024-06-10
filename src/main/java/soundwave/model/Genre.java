@@ -1,6 +1,5 @@
 package soundwave.model;
 
-import com.sun.tools.javac.jvm.Gen;
 import soundwave.repository.Migration;
 import soundwave.util.Logger;
 
@@ -11,7 +10,7 @@ import java.util.UUID;
 public class Genre {
     private final String id = UUID.randomUUID().toString();
     private String name, description;
-    private List<Music> songs;
+    private HashMap<String, Music> songs;
 
     public Genre() {}
 
@@ -23,7 +22,7 @@ public class Genre {
         this.description = description;
     }
 
-    public void setSongs(List<Music> songs) {
+    public void setSongs(HashMap<String, Music> songs) {
         this.songs = songs;
     }
 
@@ -35,7 +34,7 @@ public class Genre {
         return description;
     }
 
-    public List<Music> getSongs() {
+    public HashMap<String, Music> getSongs() {
         return songs;
     }
 
@@ -65,13 +64,13 @@ public class Genre {
         return true;
     }
 
-    public boolean delete(String genre) {
+    public boolean delete(String id) {
         try {
-            if (Migration.getGenres().get(genre) == null) {
+            if (Migration.getGenres().get(id) == null) {
                 return false;
             }
 
-            Migration.getGenres().remove(genre);
+            Migration.getGenres().remove(id);
         } catch (Exception exception) {
             Logger.log(exception);
             return false;

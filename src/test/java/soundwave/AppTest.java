@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import soundwave.model.Artist;
+import soundwave.model.Genre;
+import soundwave.model.Music;
 import soundwave.model.User;
 import soundwave.repository.Migration;
 import soundwave.views.Login;
@@ -109,6 +112,101 @@ public class AppTest
 
         assertNotEquals(id1, id2);
     }
+
+    // music automation test
+    @Test
+    public void getSongs() {
+        Music music = new Music();
+        assertTrue(music.songs() == null);
+    }
+
+    @Test
+    public void saveMusic() {
+        Music music = new Music();
+        music.setDuration("200");
+        music.setArtistId("ABC");
+        music.setGenreId("DEC");
+        music.setReleaseDate("2024");
+        assertTrue(music.save());
+    }
+
+    @Test
+    public void deleteMusic() {
+        Music music = new Music();
+        music.setDuration("200");
+        music.setArtistId("ABC");
+        music.setGenreId("DEC");
+        music.setReleaseDate("2024");
+        music.save();
+
+        assertTrue(music.delete(music.getId()));
+    }
+
+    // genre automation test
+    @Test
+    public void getGenre() {
+        Genre genre = new Genre();
+        assertTrue(genre.genres() == null);
+    }
+
+    @Test
+    public void saveGenre() {
+        Music music = new Music();
+        music.setDuration("200");
+        music.setArtistId("ABC");
+        music.setGenreId("DEC");
+        music.setReleaseDate("2024");
+        music.save();
+
+        Genre genre = new Genre();
+        genre.setName("Comedy");
+        genre.setDescription("ABC");
+        genre.setSongs(Migration.getSongs());
+        assertTrue(genre.save());
+    }
+
+    @Test
+    public void deleteGenre() {
+        Genre genre = new Genre();
+        genre.setName("Comedy");
+        genre.setDescription("ABC");
+        genre.save();
+
+        assertTrue(genre.delete(genre.getId()));
+    }
+
+    // artist automation test
+    @Test
+    public void getArtist() {
+        Artist artist = new Artist();
+        assertTrue(artist.artist() == null);
+    }
+
+    @Test
+    public void saveArtist() {
+        Music music = new Music();
+        music.setDuration("200");
+        music.setArtistId("ABC");
+        music.setGenreId("DEC");
+        music.setReleaseDate("2024");
+        music.save();
+
+        Artist artist = new Artist();
+        artist.setName("Comedy");
+        artist.setBio("ABC");
+        artist.setSongs(Migration.getSongs());
+        assertTrue(artist.save());
+    }
+
+    @Test
+    public void deleteArtist() {
+        Artist artist = new Artist();
+        artist.setName("Comedy");
+        artist.save();
+
+        assertTrue(artist.delete(artist.getId()));
+    }
+
 
     /**
      * Debug and more

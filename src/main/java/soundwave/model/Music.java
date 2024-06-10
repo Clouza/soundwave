@@ -54,11 +54,11 @@ public class Music {
 
     public boolean save() {
         try {
-            boolean existingMusic =  Migration.getSongs() != null && Migration.getSongs().get(id) != null;
-            if (!existingMusic) {
-                System.out.println("Musik tidak ditemukan.");
-                return false;
-            }
+//            boolean existingMusic =  Migration.getSongs() != null && Migration.getSongs().get(id) != null;
+//            if (!existingMusic) {
+//                System.out.println("Musik tidak ditemukan.");
+//                return false;
+//            }
 
             HashMap<String, Music> songs = Migration.getSongs() == null
                     ? new HashMap<String, Music>()

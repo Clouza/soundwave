@@ -13,7 +13,7 @@ public class Artist {
         name,
         bio,
         country;
-    private List<Music> songs;
+    private HashMap<String, Music> songs;
 
     public Artist() {}
 
@@ -29,8 +29,12 @@ public class Artist {
         this.country = country;
     }
 
-    public void setSongs(List<Music> songs) {
+    public void setSongs(HashMap<String, Music> songs) {
         this.songs = songs;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -45,7 +49,7 @@ public class Artist {
         return country;
     }
 
-    public List<Music> getSongs() {
+    public HashMap<String, Music> getSongs() {
         return songs;
     }
 
