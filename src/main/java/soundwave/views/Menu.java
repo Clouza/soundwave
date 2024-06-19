@@ -40,6 +40,26 @@ public class Menu extends View {
         } while (true);
     }
 
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void create() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
     private void menus(String menu) {
         switch (menu) {
             case "1":

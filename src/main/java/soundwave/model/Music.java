@@ -9,19 +9,25 @@ import java.util.UUID;
 public class Music {
     private final String id = UUID.randomUUID().toString();
     private String
-        artistId,
-        genreId,
+        name,
         duration,
         releaseDate;
 
+    private Artist artist;
+    private Genre genre;
+
     public Music() {}
 
-    public void setArtistId(String artistId) {
-        this.artistId = artistId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setGenreId(String genreId) {
-        this.genreId = genreId;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     public void setDuration(String duration) {
@@ -32,12 +38,16 @@ public class Music {
         this.releaseDate = releaseDate;
     }
 
-    public String getArtistId() {
-        return artistId;
+    public String getName() {
+        return name;
     }
 
-    public String getGenreId() {
-        return genreId;
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public Genre getGenre() {
+        return genre;
     }
 
     public String getDuration() {
@@ -54,12 +64,6 @@ public class Music {
 
     public boolean save() {
         try {
-//            boolean existingMusic =  Migration.getSongs() != null && Migration.getSongs().get(id) != null;
-//            if (!existingMusic) {
-//                System.out.println("Musik tidak ditemukan.");
-//                return false;
-//            }
-
             HashMap<String, Music> songs = Migration.getSongs() == null
                     ? new HashMap<String, Music>()
                     : Migration.getSongs();

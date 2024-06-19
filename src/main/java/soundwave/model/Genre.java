@@ -4,13 +4,11 @@ import soundwave.repository.Migration;
 import soundwave.util.Logger;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class Genre {
     private final String id = UUID.randomUUID().toString();
     private String name, description;
-    private HashMap<String, Music> songs;
 
     public Genre() {}
 
@@ -22,20 +20,12 @@ public class Genre {
         this.description = description;
     }
 
-    public void setSongs(HashMap<String, Music> songs) {
-        this.songs = songs;
-    }
-
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public HashMap<String, Music> getSongs() {
-        return songs;
     }
 
     public String getId() {

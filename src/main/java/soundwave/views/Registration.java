@@ -1,15 +1,14 @@
 package soundwave.views;
 
 import soundwave.model.User;
-import soundwave.repository.Migration;
 import soundwave.util.ClearConsole;
 import soundwave.util.Logger;
+import soundwave.util.UserInterface;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Registration extends View {
+public class Registration {
     private Scanner input;
 
     public Registration() {}
@@ -17,15 +16,13 @@ public class Registration extends View {
         this.input = input;
     }
 
-    @Override
     public void console() {
         Scanner input = new Scanner(System.in);
+        UserInterface ui = new UserInterface();
         boolean save = false;
 
         do {
-            System.out.println("+---------------------------+");
-            System.out.println("|       Registration        |");
-            System.out.println("+---------------------------+");
+            ui.banner("Registration");
 
             System.out.print("Nama: ");
             String name = input.nextLine();
@@ -44,19 +41,18 @@ public class Registration extends View {
 
             save = this.register(name, email, username, password, passwordConfirmation);
             if (save) {
-                System.out.println("Register berhasil. Selamat!");
+                ClearConsole.clear();
+                ui.banner("Register berhasil. Selamat!");
+                input.nextLine();
             }
-
-            input.nextLine();
-            ClearConsole.clear();
         } while (!save);
     }
 
     public boolean register(String name, String email, String username, String password, String passwordConfirmation) {
         try {
-            System.out.println();
+            UserInterface ui = new UserInterface();
             if (!Objects.equals(password, passwordConfirmation)) {
-                System.out.println("Password tidak sama.");
+                ui.banner("Password tidak sama");
                 return false;
             }
 

@@ -1,29 +1,28 @@
 package soundwave.views;
 
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import soundwave.util.ClearConsole;
-import soundwave.util.Dotenv;
 import soundwave.util.Logger;
+import soundwave.util.UserInterface;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Dashboard extends View {
+public class Dashboard {
     private String halaman;
     private ClearConsole console;
 
     public Dashboard() {}
-    public Dashboard(String message) {
-        super(message);
-    }
 
     public void console() {
         try {
-            while(true) {
-                System.out.println("+-----------------------------------+");
-                System.out.println("|       Welcome to Soundwave        |");
-                System.out.println("+-----------------------------------+");
+            UserInterface ui = new UserInterface();
+            Scanner input = new Scanner(System.in);
 
-                Scanner input = new Scanner(System.in);
+            while(true) {
+                ClearConsole.clear();
+                ui.banner("Welcome to Soundwave");
                 System.out.println("1. Registration");
                 System.out.println("2. Login");
 
@@ -35,14 +34,24 @@ public class Dashboard extends View {
                     new Registration().console();
                 }
 
-                Login login = new Login();
-                login.console();
+                if (this.halaman.equalsIgnoreCase("login") || this.halaman.equalsIgnoreCase("2") ) {
+                    Login login = new Login();
+                    login.console();
 
+                    // admin mode
+                    if (login.getIsRoot()) {
+                        new Admin();
+                    }
 
+                    // user mode
+                }
             }
+
+//            ui.banner("Terimakasih telah menggunakan program ini.");
         } catch (Exception exception) {
             Logger.log(exception);
             exception.printStackTrace();
         }
+
     }
 }

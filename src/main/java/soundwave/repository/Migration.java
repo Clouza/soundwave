@@ -1,10 +1,8 @@
 package soundwave.repository;
 
-import soundwave.model.Artist;
-import soundwave.model.Genre;
-import soundwave.model.Music;
-import soundwave.model.User;
+import soundwave.model.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Migration {
@@ -12,6 +10,8 @@ public class Migration {
     private static HashMap<String, Artist> artists;
     private static HashMap<String, Genre> genres;
     private static HashMap<String, User> users;
+    private static HashMap<String, ArrayList<Playlist>> playlists;
+    private static String userActive;
 
     public Migration() {}
 
@@ -33,6 +33,14 @@ public class Migration {
         Migration.users = users;
     }
 
+    public static void setPlaylists(HashMap<String, ArrayList<Playlist>> playlists) {
+        Migration.playlists = playlists;
+    }
+
+    public static void setUserActive(String userActive) {
+        Migration.userActive = userActive;
+    }
+
     public static HashMap<String, Music> getSongs() {
         return songs;
     }
@@ -47,5 +55,13 @@ public class Migration {
 
     public static HashMap<String, User> getUsers() {
         return users;
+    }
+
+    public static HashMap<String, ArrayList<Playlist>> getPlaylists() {
+        return playlists;
+    }
+
+    public static String getUserActive() {
+        return userActive;
     }
 }

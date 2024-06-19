@@ -7,8 +7,8 @@ import soundwave.util.UserInterface;
 
 import java.util.Scanner;
 
-public class Music extends View {
-    public Music() {}
+public class User extends View {
+    public User() {}
 
     @Override
     public void console() {
@@ -17,10 +17,8 @@ public class Music extends View {
             UserInterface ui = new UserInterface();
 
             do {
-                ClearConsole.clear();
-                ui.banner("MENU MUSIK");
-                ui.music();
-
+                ui.banner("MENU USER");
+                ui.user();
                 System.out.print("Silahkan masukan pilihan Anda: [1 - 4]: ");
                 String menu = input.nextLine();
 
@@ -64,12 +62,12 @@ public class Music extends View {
             UserInterface ui = new UserInterface();
             Scanner input = new Scanner(System.in);
 
-            if (Migration.getSongs().size() < 1) {
+            if (Migration.getUsers() == null) {
                 ClearConsole.clear();
-                ui.banner("Data Musik kosong");
+                ui.banner("Data User kosong");
             } else {
-                for (soundwave.model.Music music: Migration.getSongs().values()) {
-                    ui.readMusic(music);
+                for (soundwave.model.User user: Migration.getUsers().values()) {
+                    ui.readUser(user);
                 }
             }
 
@@ -83,39 +81,28 @@ public class Music extends View {
     @Override
     public void create() {
         try {
-            ClearConsole.clear();
             Scanner input = new Scanner(System.in);
-            soundwave.model.Music music = new soundwave.model.Music();
+            soundwave.model.User user = new soundwave.model.User();
 
             UserInterface ui = new UserInterface();
-            ui.banner("TAMBAH MUSIK");
+            ui.banner("TAMBAH USER");
 
-            System.out.print("Nama                  : ");
-            music.setName(input.nextLine());
+            System.out.print("Username  : ");
+            user.setUsername(input.nextLine());
 
-            System.out.print("Durasi (menit)        : ");
-            music.setDuration(input.nextLine());
+            System.out.print("Email     : ");
+            user.setEmail(input.nextLine());
 
-            System.out.print("Release Date [yyyy]   : ");
-            music.setReleaseDate(input.nextLine());
+            System.out.print("Nama      : ");
+            user.setName(input.nextLine());
 
-            // artist
-            Artist artist = new Artist();
-            artist.read();
-            System.out.print("Artis ID              : ");
-            music.setArtist(Migration.getArtists().get(input.nextLine()));
+            System.out.print("Password  : ");
+            user.setPassword(input.nextLine());
 
-            // genre
-            Genre genre = new Genre();
-            genre.read();
-            System.out.print("Genre ID              : ");
-            music.setGenre(Migration.getGenres().get(input.nextLine()));
-
-            boolean isClean = music.save();
+            boolean isClean = user.save();
             if (isClean) {
                 ClearConsole.clear();
-                ui.banner("Musik berhasil disimpan!");
-                input.nextLine();
+                ui.banner("User berhasil ditambah!");
             }
         } catch (Exception exception) {
             Logger.log(exception);
@@ -129,39 +116,31 @@ public class Music extends View {
 
         try {
             Scanner input = new Scanner(System.in);
-            System.out.print("Masukkan ID: ");
-            soundwave.model.Music music = Migration.getSongs().get(input.nextLine());
+
+            System.out.print("Username: ");
+            soundwave.model.User user = Migration.getUsers().get(input.nextLine());
 
             UserInterface ui = new UserInterface();
-            ui.banner("EDIT MUSIK");
+            ui.banner("EDIT USER");
 
-            System.out.print("Nama: ");
-            music.setName(input.nextLine());
+            System.out.print("Username  : ");
+            user.setUsername(input.nextLine());
 
-            System.out.print("Duration: ");
-            music.setDuration(input.nextLine());
+            System.out.print("Email     : ");
+            user.setEmail(input.nextLine());
 
-            System.out.print("Release Date [yyyy]: ");
-            music.setReleaseDate(input.nextLine());
+            System.out.print("Nama      : ");
+            user.setName(input.nextLine());
 
-            // artist
-            Artist artist = new Artist();
-            artist.read();
-            System.out.print("Artis ID              : ");
-            music.setArtist(Migration.getArtists().get(input.nextLine()));
+            System.out.print("Password  : ");
+            user.setPassword(input.nextLine());
 
-            // genre
-            Genre genre = new Genre();
-            genre.read();
-            System.out.print("Genre ID              : ");
-            music.setGenre(Migration.getGenres().get(input.nextLine()));
-
-            boolean isClean = music.save();
+            boolean isClean = user.save();
             if (isClean) {
                 ClearConsole.clear();
-                ui.banner("Musik berhasil diperbarui!");
-                input.nextLine();
+                ui.banner("User berhasil diperbarui!");
             }
+
         } catch (Exception exception) {
             Logger.log(exception);
             exception.printStackTrace();
@@ -175,13 +154,13 @@ public class Music extends View {
         try {
             Scanner input = new Scanner(System.in);
             UserInterface ui = new UserInterface();
-            ui.banner("HAPUS MUSIK");
+            ui.banner("HAPUS USER");
 
-            System.out.print("Masukkan ID: ");
-            Migration.getSongs().remove(input.nextLine());
+            System.out.print("Username: ");
+            Migration.getUsers().remove(input.nextLine());
 
             ClearConsole.clear();
-            ui.banner("Musik berhasil dihapus!");
+            ui.banner("User berhasil dihapus!");
         } catch (Exception exception) {
             Logger.log(exception);
             exception.printStackTrace();

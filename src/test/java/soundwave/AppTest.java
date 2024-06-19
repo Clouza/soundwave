@@ -124,8 +124,6 @@ public class AppTest
     public void saveMusic() {
         Music music = new Music();
         music.setDuration("200");
-        music.setArtistId("ABC");
-        music.setGenreId("DEC");
         music.setReleaseDate("2024");
         assertTrue(music.save());
     }
@@ -134,8 +132,6 @@ public class AppTest
     public void deleteMusic() {
         Music music = new Music();
         music.setDuration("200");
-        music.setArtistId("ABC");
-        music.setGenreId("DEC");
         music.setReleaseDate("2024");
         music.save();
 
@@ -153,15 +149,12 @@ public class AppTest
     public void saveGenre() {
         Music music = new Music();
         music.setDuration("200");
-        music.setArtistId("ABC");
-        music.setGenreId("DEC");
         music.setReleaseDate("2024");
         music.save();
 
         Genre genre = new Genre();
         genre.setName("Comedy");
         genre.setDescription("ABC");
-        genre.setSongs(Migration.getSongs());
         assertTrue(genre.save());
     }
 
@@ -186,15 +179,12 @@ public class AppTest
     public void saveArtist() {
         Music music = new Music();
         music.setDuration("200");
-        music.setArtistId("ABC");
-        music.setGenreId("DEC");
         music.setReleaseDate("2024");
         music.save();
 
         Artist artist = new Artist();
         artist.setName("Comedy");
         artist.setBio("ABC");
-        artist.setSongs(Migration.getSongs());
         assertTrue(artist.save());
     }
 

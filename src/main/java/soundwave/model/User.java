@@ -3,6 +3,7 @@ package soundwave.model;
 import soundwave.repository.Migration;
 import soundwave.util.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +15,8 @@ public class User {
         password,
         email,
         name;
-    private List<Music> likedSongs;
+
+    private ArrayList<Playlist> playlists = new ArrayList<>();
 
     public User() {}
 
@@ -34,10 +36,6 @@ public class User {
         this.name = name;
     }
 
-    public void setLikedSongs(List<Music> likedSongs) {
-        this.likedSongs = likedSongs;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -52,10 +50,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public List<Music> getLikedSongs() {
-        return likedSongs;
     }
 
     public String getId() {

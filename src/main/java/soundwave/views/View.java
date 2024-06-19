@@ -10,4 +10,8 @@ public abstract class View {
         this.message = message;
     }
     public abstract void console();
+    public abstract void read();
+    public abstract void create();
+    public abstract void update();
+    public abstract void delete();
 }

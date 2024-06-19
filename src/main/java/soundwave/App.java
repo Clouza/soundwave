@@ -1,18 +1,13 @@
 package soundwave;
 
-import soundwave.util.ClearConsole;
-import soundwave.util.Dotenv;
-import soundwave.util.Logger;
+import soundwave.repository.Seeder;
 import soundwave.views.Dashboard;
-import soundwave.views.Login;
-
-import java.io.IOException;
 
 /**
  * Soundwave Project
  *
- * TODO (develop, max. June 10, 2024):
- * - Develop Interface & Program Flow
+ * TODO :
+ * - Develop Interface & Program Flow           [DONE]
  * - Spotify API Integration
  * - Database Integration: SQLite
  * - Faker Identity Generator                   [DONE]
@@ -23,19 +18,48 @@ import java.io.IOException;
  * - Interactive Console & Animation
  * - Built-in dotenv                            [DONE]
  * - Exception handler & logger                 [DONE]
- * - Automation testing
- * - Static Scanner DI
+ * - Automation testing                         [DONE]
  *
  * Features:
  * - Playlist (Music name, Artist, Genre)
  * - User Profile
  *
+ * Detail Menu:
+ * - Music
+ *      - Tampil Musik
+ *      - Tambah Musik
+ *      - Edit Musik
+ *      - Hapus Musik
+ *
+ * - Artist
+ *      - Tampil Artis
+ *      - Tambah Artis
+ *      - Edit Artis
+ *      - Hapus Artis
+ *
+ * - Genre
+ *      - Tampil Genre
+ *      - Tambah Genre
+ *      - Edit Genre
+ *      - Hapus Genre
+ *
+ * - Playlist
+ *      - Tampil Playlist
+ *      - Tambah Playlist
+ *      - Edit Playlist
+ *      - Hapus Playlist
+ *
  * Started from June 3, 2024
  */
 public class App {
     public static void main( String[] args ) {
-        Dashboard dashboard = new Dashboard("Welcome to Soundwave");
+        Seeder seed = new Seeder();
+        seed.genreSeed();
+        seed.artistSeed();
+        seed.musicSeed();
+        seed.userSeed();
 
+        Dashboard dashboard = new Dashboard();
         dashboard.console();
     }
 }

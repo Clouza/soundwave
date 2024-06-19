@@ -5,10 +5,12 @@ import soundwave.util.ClearConsole;
 import soundwave.util.Logger;
 import soundwave.util.UserInterface;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class Music extends View {
-    public Music() {}
+public class Playlist extends View {
+    public Playlist() {}
 
     @Override
     public void console() {
@@ -17,10 +19,8 @@ public class Music extends View {
             UserInterface ui = new UserInterface();
 
             do {
-                ClearConsole.clear();
-                ui.banner("MENU MUSIK");
-                ui.music();
-
+                ui.banner("MENU PLAYLIST");
+                ui.playlist();
                 System.out.print("Silahkan masukan pilihan Anda: [1 - 4]: ");
                 String menu = input.nextLine();
 
@@ -60,16 +60,15 @@ public class Music extends View {
     @Override
     public void read() {
         try {
-            ClearConsole.clear();
             UserInterface ui = new UserInterface();
             Scanner input = new Scanner(System.in);
 
-            if (Migration.getSongs().size() < 1) {
+            if (Migration.getPlaylists() == null || Migration.getPlaylists().get(Migration.getUserActive()).size() < 1) {
                 ClearConsole.clear();
-                ui.banner("Data Musik kosong");
+                ui.banner("Data Playlist kosong");
             } else {
-                for (soundwave.model.Music music: Migration.getSongs().values()) {
-                    ui.readMusic(music);
+                for (int i = 0; i < Migration.getPlaylists().get(Migration.getUserActive()).size(); i++) {
+                    ui.readPlaylist(Migration.getPlaylists().get(Migration.getUserActive()).get(i), i++);
                 }
             }
 
@@ -83,38 +82,37 @@ public class Music extends View {
     @Override
     public void create() {
         try {
-            ClearConsole.clear();
             Scanner input = new Scanner(System.in);
-            soundwave.model.Music music = new soundwave.model.Music();
+            soundwave.model.Playlist playlist = new soundwave.model.Playlist();
 
             UserInterface ui = new UserInterface();
-            ui.banner("TAMBAH MUSIK");
+            ui.banner("TAMBAH PLAYLIST");
 
-            System.out.print("Nama                  : ");
-            music.setName(input.nextLine());
+            // songs
+            ArrayList<soundwave.model.Music> songs = new ArrayList<>();
 
-            System.out.print("Durasi (menit)        : ");
-            music.setDuration(input.nextLine());
+            while(true) {
+                Music music = new Music();
+                music.read();
+                System.out.print("ID Musik : ");
+                songs.add(Migration.getSongs().get(input.nextLine()));
 
-            System.out.print("Release Date [yyyy]   : ");
-            music.setReleaseDate(input.nextLine());
+                System.out.print("Ingin menambahkan musik lagi? (yes/no) [default: no]: ");
+                if (!input.nextLine().equalsIgnoreCase("yes")) {
+                    break;
+                }
+            }
+            playlist.setSongs(songs);
 
-            // artist
-            Artist artist = new Artist();
-            artist.read();
-            System.out.print("Artis ID              : ");
-            music.setArtist(Migration.getArtists().get(input.nextLine()));
+            ArrayList<soundwave.model.Playlist> playlists = Migration.getPlaylists() == null
+                    ? new ArrayList<>()
+                    : Migration.getPlaylists().get(Migration.getUserActive());
+            playlists.add(playlist);
 
-            // genre
-            Genre genre = new Genre();
-            genre.read();
-            System.out.print("Genre ID              : ");
-            music.setGenre(Migration.getGenres().get(input.nextLine()));
-
-            boolean isClean = music.save();
+            boolean isClean = playlist.save(playlists);
             if (isClean) {
                 ClearConsole.clear();
-                ui.banner("Musik berhasil disimpan!");
+                ui.banner("Playlist berhasil disimpan!");
                 input.nextLine();
             }
         } catch (Exception exception) {
@@ -129,37 +127,36 @@ public class Music extends View {
 
         try {
             Scanner input = new Scanner(System.in);
-            System.out.print("Masukkan ID: ");
-            soundwave.model.Music music = Migration.getSongs().get(input.nextLine());
+
+            System.out.print("Index Playlist : ");
+            soundwave.model.Playlist playlist = Migration.getPlaylists().get(Migration.getUserActive()).get(Integer.parseInt(input.nextLine()));
 
             UserInterface ui = new UserInterface();
-            ui.banner("EDIT MUSIK");
+            ui.banner("EDIT PLAYLIST");
 
-            System.out.print("Nama: ");
-            music.setName(input.nextLine());
+            // songs
+            ArrayList<soundwave.model.Music> songs = new ArrayList<>();
 
-            System.out.print("Duration: ");
-            music.setDuration(input.nextLine());
+            while(true) {
+                Music music = new Music();
+                music.read();
+                System.out.print("ID Musik : ");
+                songs.add(Migration.getSongs().get(input.nextLine()));
 
-            System.out.print("Release Date [yyyy]: ");
-            music.setReleaseDate(input.nextLine());
+                System.out.print("Ingin menambahkan musik lagi? (yes/no) [default: no]: ");
+                if (!input.nextLine().equalsIgnoreCase("yes")) {
+                    break;
+                }
+            }
+            playlist.setSongs(songs);
 
-            // artist
-            Artist artist = new Artist();
-            artist.read();
-            System.out.print("Artis ID              : ");
-            music.setArtist(Migration.getArtists().get(input.nextLine()));
+            ArrayList<soundwave.model.Playlist> playlists = Migration.getPlaylists().get(Migration.getUserActive());
+            playlists.add(playlist);
 
-            // genre
-            Genre genre = new Genre();
-            genre.read();
-            System.out.print("Genre ID              : ");
-            music.setGenre(Migration.getGenres().get(input.nextLine()));
-
-            boolean isClean = music.save();
+            boolean isClean = playlist.save(playlists);
             if (isClean) {
                 ClearConsole.clear();
-                ui.banner("Musik berhasil diperbarui!");
+                ui.banner("Playlist berhasil disimpan!");
                 input.nextLine();
             }
         } catch (Exception exception) {
@@ -175,13 +172,13 @@ public class Music extends View {
         try {
             Scanner input = new Scanner(System.in);
             UserInterface ui = new UserInterface();
-            ui.banner("HAPUS MUSIK");
+            ui.banner("HAPUS PLAYLIST");
 
-            System.out.print("Masukkan ID: ");
-            Migration.getSongs().remove(input.nextLine());
+            System.out.print("Index Playlist: ");
+            Migration.getPlaylists().get(Migration.getUserActive()).remove(Integer.parseInt(input.nextLine()));
 
             ClearConsole.clear();
-            ui.banner("Musik berhasil dihapus!");
+            ui.banner("Playlist berhasil dihapus!");
         } catch (Exception exception) {
             Logger.log(exception);
             exception.printStackTrace();

@@ -4,7 +4,6 @@ import soundwave.repository.Migration;
 import soundwave.util.Logger;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class Artist {
@@ -13,7 +12,6 @@ public class Artist {
         name,
         bio,
         country;
-    private HashMap<String, Music> songs;
 
     public Artist() {}
 
@@ -27,10 +25,6 @@ public class Artist {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public void setSongs(HashMap<String, Music> songs) {
-        this.songs = songs;
     }
 
     public String getId() {
@@ -47,10 +41,6 @@ public class Artist {
 
     public String getCountry() {
         return country;
-    }
-
-    public HashMap<String, Music> getSongs() {
-        return songs;
     }
 
     public boolean save() {
@@ -75,13 +65,13 @@ public class Artist {
         return true;
     }
 
-    public boolean delete(String artist) {
+    public boolean delete(String id) {
         try {
-            if (Migration.getArtists().get(artist) == null) {
+            if (Migration.getArtists().get(id) == null) {
                 return false;
             }
 
-            Migration.getArtists().remove(artist);
+            Migration.getArtists().remove(id);
         } catch (Exception exception) {
             Logger.log(exception);
             return false;
