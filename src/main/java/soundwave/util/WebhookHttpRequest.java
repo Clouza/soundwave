@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class HttpRequest {
+public class WebhookHttpRequest {
     String url, method, contentType, message;
 
-    public HttpRequest() {}
+    public WebhookHttpRequest() {}
 
-    public HttpRequest setUrl(String url) {
+    public WebhookHttpRequest setUrl(String url) {
         this.url = url;
         return this;
     }
@@ -19,7 +19,7 @@ public class HttpRequest {
         return url;
     }
 
-    public HttpRequest setMethod(String method) {
+    public WebhookHttpRequest setMethod(String method) {
         this.method = method;
         return this;
     }
@@ -28,7 +28,7 @@ public class HttpRequest {
         return method;
     }
 
-    public HttpRequest setContentType(String contentType) {
+    public WebhookHttpRequest setContentType(String contentType) {
         this.contentType = contentType;
         return this;
     }
@@ -37,7 +37,7 @@ public class HttpRequest {
         return contentType;
     }
 
-    public HttpRequest setMessage(String message) {
+    public WebhookHttpRequest setMessage(String message) {
         this.message = message;
         return this;
     }

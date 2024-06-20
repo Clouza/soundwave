@@ -63,12 +63,15 @@ public class Playlist extends View {
             UserInterface ui = new UserInterface();
             Scanner input = new Scanner(System.in);
 
-            if (Migration.getPlaylists() == null || Migration.getPlaylists().get(Migration.getUserActive()).size() < 1) {
+            if (Migration.getPlaylists() == null || Migration.getPlaylists().get(Migration.getUserActive()) == null) {
                 ClearConsole.clear();
                 ui.banner("Data Playlist kosong");
             } else {
-                for (int i = 0; i < Migration.getPlaylists().get(Migration.getUserActive()).size(); i++) {
-                    ui.readPlaylist(Migration.getPlaylists().get(Migration.getUserActive()).get(i), i++);
+                if (Migration.getPlaylists().get(Migration.getUserActive()).size() < 1) {
+                    ClearConsole.clear();
+                    ui.banner("Data Playlist kosong");
+                } else {
+                    ui.readPlaylist(Migration.getPlaylists().get(Migration.getUserActive()));
                 }
             }
 
@@ -126,38 +129,55 @@ public class Playlist extends View {
         this.read();
 
         try {
-            Scanner input = new Scanner(System.in);
-
-            System.out.print("Index Playlist : ");
-            soundwave.model.Playlist playlist = Migration.getPlaylists().get(Migration.getUserActive()).get(Integer.parseInt(input.nextLine()));
-
             UserInterface ui = new UserInterface();
-            ui.banner("EDIT PLAYLIST");
+            if (Migration.getPlaylists() != null) {
+                Scanner input = new Scanner(System.in);
+                int index;
+                soundwave.model.Playlist playlist;
 
-            // songs
-            ArrayList<soundwave.model.Music> songs = new ArrayList<>();
+                while(true) {
+                    try {
+                        System.out.print("Index Playlist : ");
+                        index = Integer.parseInt(input.nextLine()) - 1;
+                        playlist = Migration.getPlaylists().get(Migration.getUserActive()).get(index);
+                        break;
+                    } catch (Exception exception) {
+                        ui.banner("Index tidak ada!");
+                        Logger.log(exception);
+                    }
+                }
+                ui.banner("EDIT PLAYLIST");
 
-            while(true) {
-                Music music = new Music();
-                music.read();
-                System.out.print("ID Musik : ");
-                songs.add(Migration.getSongs().get(input.nextLine()));
+                // songs
+                ArrayList<soundwave.model.Music> songs = new ArrayList<>();
 
-                System.out.print("Ingin menambahkan musik lagi? (yes/no) [default: no]: ");
-                if (!input.nextLine().equalsIgnoreCase("yes")) {
-                    break;
+                while(true) {
+                    Music music = new Music();
+                    music.read();
+                    System.out.print("ID Musik : ");
+                    songs.add(Migration.getSongs().get(input.nextLine()));
+
+                    System.out.print("Ingin menambahkan musik lagi? (yes/no) [default: no]: ");
+                    if (!input.nextLine().equalsIgnoreCase("yes")) {
+                        break;
+                    }
+                }
+                playlist.setSongs(songs);
+
+                ArrayList<soundwave.model.Playlist> playlists = Migration.getPlaylists().get(Migration.getUserActive());
+                playlists.set(index, playlist);
+
+                boolean isClean = playlist.save(playlists);
+                if (isClean) {
+                    ClearConsole.clear();
+                    ui.banner("Playlist berhasil disimpan!");
+                    input.nextLine();
                 }
             }
-            playlist.setSongs(songs);
 
-            ArrayList<soundwave.model.Playlist> playlists = Migration.getPlaylists().get(Migration.getUserActive());
-            playlists.add(playlist);
-
-            boolean isClean = playlist.save(playlists);
-            if (isClean) {
+            if (Migration.getPlaylists() == null) {
                 ClearConsole.clear();
-                ui.banner("Playlist berhasil disimpan!");
-                input.nextLine();
+                ui.banner("Data Playlist kosong!");
             }
         } catch (Exception exception) {
             Logger.log(exception);
@@ -175,7 +195,7 @@ public class Playlist extends View {
             ui.banner("HAPUS PLAYLIST");
 
             System.out.print("Index Playlist: ");
-            Migration.getPlaylists().get(Migration.getUserActive()).remove(Integer.parseInt(input.nextLine()));
+            Migration.getPlaylists().get(Migration.getUserActive()).remove(Integer.parseInt(input.nextLine()) - 1);
 
             ClearConsole.clear();
             ui.banner("Playlist berhasil dihapus!");

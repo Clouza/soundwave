@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import soundwave.util.Dotenv;
-import soundwave.util.HttpRequest;
+import soundwave.util.WebhookHttpRequest;
 
 import java.io.*;
 
@@ -64,7 +64,7 @@ public class LoggerTest {
     @Test
     public void sendReportToDiscordTest() {
         try {
-            HttpRequest request = new HttpRequest();
+            WebhookHttpRequest request = new WebhookHttpRequest();
             request.setMethod("POST")
                     .setUrl(this.env.ENV("DISCORD_WEBHOOK"))
                     .setContentType("application/json")

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class User {
-    private final String id = UUID.randomUUID().toString();
+    private String id = UUID.randomUUID().toString();
     private String
         username,
         password,
@@ -34,6 +34,10 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {

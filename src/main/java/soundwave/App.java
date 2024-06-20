@@ -1,21 +1,27 @@
 package soundwave;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import soundwave.repository.Migration;
 import soundwave.repository.Seeder;
+import soundwave.util.Dotenv;
+import soundwave.api.SpotifyWebApi;
 import soundwave.views.Dashboard;
+
+import java.net.URLEncoder;
+import java.util.Scanner;
 
 /**
  * Soundwave Project
  *
  * TODO :
  * - Develop Interface & Program Flow           [DONE]
- * - Spotify API Integration
- * - Database Integration: SQLite
+ * - Spotify API Integration                    [DONE]
+ * - Database Integration: SQLite               [DONE]
  * - Faker Identity Generator                   [DONE]
- * - Audio Stream
  * - Port Tunneling (Remote Access)
- * - User Identity & Access Management (IAM)
+ * - Simple User IAM                            [DONE]
  * - Authentication                             [DONE]
- * - Interactive Console & Animation
+ * - Interactive Console                        [DONE]
  * - Built-in dotenv                            [DONE]
  * - Exception handler & logger                 [DONE]
  * - Automation testing                         [DONE]
@@ -59,7 +65,12 @@ public class App {
         seed.musicSeed();
         seed.userSeed();
 
+        // initialize table
+        new Migration();
+
         Dashboard dashboard = new Dashboard();
         dashboard.console();
+
+
     }
 }

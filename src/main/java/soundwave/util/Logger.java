@@ -37,7 +37,7 @@ public class Logger {
         if(!(logFile instanceof Boolean)) {
             // send report to discord
             try {
-                HttpRequest request = new HttpRequest();
+                WebhookHttpRequest request = new WebhookHttpRequest();
                 Dotenv env = new Dotenv();
                 request.setMethod("POST")
                         .setUrl(env.ENV("DISCORD_WEBHOOK"))

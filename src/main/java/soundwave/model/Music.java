@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Music {
-    private final String id = UUID.randomUUID().toString();
+    private String id = UUID.randomUUID().toString();
     private String
         name,
         duration,
-        releaseDate;
+        releaseDate,
+        externalLink,
+        spotifyLink;
 
     private Artist artist;
     private Genre genre;
@@ -38,6 +40,18 @@ public class Music {
         this.releaseDate = releaseDate;
     }
 
+    public void setExternalLink(String externalLink) {
+        this.externalLink = externalLink;
+    }
+
+    public void setSpotifyLink(String spotifyLink) {
+        this.spotifyLink = spotifyLink;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -60,6 +74,14 @@ public class Music {
 
     public String getId() {
         return id;
+    }
+
+    public String getExternalLink() {
+        return externalLink;
+    }
+
+    public String getSpotifyLink() {
+        return spotifyLink;
     }
 
     public boolean save() {

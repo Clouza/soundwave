@@ -4,6 +4,8 @@ import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import soundwave.model.*;
 
+import java.util.ArrayList;
+
 public class UserInterface {
     private final int width = 90;
 
@@ -30,6 +32,19 @@ public class UserInterface {
         table.addRow("4", "Manajemen Playlist");
         table.addRule();
         table.addRow("5", "Manajemen Pengguna");
+        table.addRule();
+        table.addRow("0", "Keluar");
+        table.addRule();
+        table.setTextAlignment(TextAlignment.CENTER);
+        System.out.println(table.render(width));
+    }
+
+    public void userDashboard() {
+        AsciiTable table = new AsciiTable();
+
+
+        table.addRule();
+        table.addRow("1", "Manajemen Playlist");
         table.addRule();
         table.addRow("0", "Keluar");
         table.addRule();
@@ -173,18 +188,29 @@ public class UserInterface {
         System.out.println(table.render(width));
     }
 
-    public void readPlaylist(Playlist playlist, Integer index) {
-        AsciiTable table = new AsciiTable();
+    public void readPlaylist(ArrayList<Playlist> playlists) {
+        for (int i = 0; i < playlists.size(); i++) {
+            this.banner("Playlist ke-" + (i + 1));
 
-        table.addRule();
-        table.addRow("Index", index);
-        table.addRule();
-        table.addRow("ID", playlist.getSongs().get(index).getId());
-        table.addRule();
-        table.addRow("Nama Musik", playlist.getSongs().get(index).getName());
-        table.addRule();
-        table.setTextAlignment(TextAlignment.CENTER);
-        System.out.println(table.render(width));
+            for(Music music: playlists.get(i).getSongs()) {
+                AsciiTable table = new AsciiTable();
+                String id = music == null
+                        ? "-"
+                        : music.getId();
+
+                String name = music == null
+                        ? "-"
+                        : music.getName();
+
+                table.addRule();
+                table.addRow("ID Musik", id);
+                table.addRule();
+                table.addRow("Nama Musik", name);
+                table.addRule();
+                table.setTextAlignment(TextAlignment.CENTER);
+                System.out.println(table.render(width));
+            }
+        }
     }
 
     /**

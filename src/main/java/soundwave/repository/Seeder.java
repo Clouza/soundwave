@@ -101,12 +101,12 @@ public class Seeder {
     public void userSeed() {
         HashMap<String, User> users = new HashMap<>();
 
-        User admin = new User();
-        admin.setName("Admin");
-        admin.setEmail("admin@example.com");
-        admin.setUsername("admin");
-        admin.setPassword("admin");
-        users.put("admin", admin);
+//        User admin = new User();
+//        admin.setName("Admin");
+//        admin.setEmail("admin@example.com");
+//        admin.setUsername("admin");
+//        admin.setPassword("admin");
+//        users.put("admin", admin);
 
         User user = new User();
         String username = this.faker.name().username();
