@@ -5,6 +5,7 @@ import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import soundwave.model.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserInterface {
     private final int width = 90;
@@ -202,10 +203,16 @@ public class UserInterface {
                         ? "-"
                         : music.getName();
 
+                String spotifyLink = music.getSpotifyLink() == null || Objects.equals(music.getSpotifyLink(), "")
+                        ? "-"
+                        : music.getSpotifyLink();
+
                 table.addRule();
                 table.addRow("ID Musik", id);
                 table.addRule();
                 table.addRow("Nama Musik", name);
+                table.addRule();
+                table.addRow("Spotify Link", spotifyLink);
                 table.addRule();
                 table.setTextAlignment(TextAlignment.CENTER);
                 System.out.println(table.render(width));

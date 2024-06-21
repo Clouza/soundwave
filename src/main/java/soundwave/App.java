@@ -21,7 +21,7 @@ import java.util.Scanner;
  * - Port Tunneling (Remote Access)
  * - Simple User IAM                            [DONE]
  * - Authentication                             [DONE]
- * - Interactive Console                        [DONE]
+ * - Interactive Console
  * - Built-in dotenv                            [DONE]
  * - Exception handler & logger                 [DONE]
  * - Automation testing                         [DONE]
