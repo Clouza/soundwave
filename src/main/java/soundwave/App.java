@@ -70,7 +70,5 @@ public class App {
 
         Dashboard dashboard = new Dashboard();
         dashboard.console();
-
-
     }
 }
