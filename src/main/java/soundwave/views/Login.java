@@ -39,7 +39,7 @@ public class Login {
             UserInterface ui = new UserInterface();
             if (Migration.getUsers() == null || Migration.getUsers().get(username) == null) {
                 ui.banner("User tidak ditemukan. Silahkan daftar terlebih dahulu");
-                return true;
+                return false;
             }
 
             String existingPassword = Migration.getUsers().get(username).getPassword();

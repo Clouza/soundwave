@@ -1,14 +1,8 @@
 package soundwave;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import soundwave.repository.Migration;
 import soundwave.repository.Seeder;
-import soundwave.util.Dotenv;
-import soundwave.api.SpotifyWebApi;
 import soundwave.views.Dashboard;
-
-import java.net.URLEncoder;
-import java.util.Scanner;
 
 /**
  * Soundwave Project
